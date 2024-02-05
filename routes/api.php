@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Rotas públicas
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    
+    //Rotas de usuário
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+    Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::put('/user/{id}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 });
