@@ -18,14 +18,14 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $token = $request->user()->createToken($request->email)->plainTextToken;
 
-            activity('Login')
-                ->performedOn($request->user())
-                ->withProperties([
-                    'attributes'=> $request->user(),
-                    'ip' => $request->ip(),
-                    'user_agent' => $request->userAgent()
-                ])
-                ->log('Login Successful');
+            // activity('Login')
+            //     ->performedOn($request->user())
+            //     ->withProperties([
+            //         'attributes'=> $request->user(),
+            //         'ip' => $request->ip(),
+            //         'user_agent' => $request->userAgent()
+            //     ])
+            //     ->log('Login Successful');
 
             return response()->json([
                 'message' => 'Login bem-sucedido',
